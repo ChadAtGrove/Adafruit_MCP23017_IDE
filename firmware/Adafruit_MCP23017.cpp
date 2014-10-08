@@ -82,6 +82,7 @@ void Adafruit_MCP23017::writeRegister(uint8_t regAddr, uint8_t regValue){
 	wiresend(regAddr);
 	wiresend(regValue);
 	Wire.endTransmission();
+	delay(30);
 }
 
 
@@ -100,6 +101,7 @@ void Adafruit_MCP23017::updateRegisterBit(uint8_t pin, uint8_t pValue, uint8_t p
 	bitWrite(regValue,bit,pValue);
 
 	writeRegister(regAddr,regValue);
+	delay(30);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +116,7 @@ void Adafruit_MCP23017::begin(uint8_t addr) {
 	i2caddr = addr;
 
 	Wire.begin();
+	delay(30);
 
 	// set defaults!
 	// all inputs on port A and B
@@ -146,6 +149,7 @@ uint16_t Adafruit_MCP23017::readGPIOAB() {
 	Wire.beginTransmission(MCP23017_ADDRESS | i2caddr);
 	wiresend(MCP23017_GPIOA);
 	Wire.endTransmission();
+	delay(30);
 
 	Wire.requestFrom(MCP23017_ADDRESS | i2caddr, 2);
 	a = wirerecv();
@@ -170,6 +174,7 @@ uint8_t Adafruit_MCP23017::readGPIO(uint8_t b) {
 		wiresend(MCP23017_GPIOB);
 	}
 	Wire.endTransmission();
+	delay(30);
 
 	Wire.requestFrom(MCP23017_ADDRESS | i2caddr, 1);
 	return wirerecv();
@@ -184,6 +189,7 @@ void Adafruit_MCP23017::writeGPIOAB(uint16_t ba) {
 	wiresend(ba & 0xFF);
 	wiresend(ba >> 8);
 	Wire.endTransmission();
+	delay(30);
 }
 
 void Adafruit_MCP23017::digitalWrite(uint8_t pin, uint8_t d) {
